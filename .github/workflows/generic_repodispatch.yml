@@ -2,7 +2,7 @@ name: generic-repodispatch
 
 on:
   repository_dispatch:
-    types: [model-registered2]
+    types: [run-status-changed]
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,7 +12,8 @@ jobs:
           PAYLOAD_CONTEXT: ${{ toJson(github.event) }}
         run: |
           echo "event is ${{ toJson(github.event.event_type) }}"
-          if [ -z "${{ github.event.client_payload.data.ModelName }}"]; then echo "experiment id is NULL"; exit 1; else echo "model_name is ${{ toJson(github.event.client_payload.data.ModelName) }}"; fi;
+          if [ -z "${{ github.event.client_payload.data.experimentName }}"]; then echo "experiment id is NULL"; exit 1; else echo "model_name is ${{ toJson(github.event.client_payload.data.experimentName) }}"; fi;
+          if [ -z "${{ github.event.client_payload.data.runId }}"]; then echo "runId is NULL"; exit 1; else echo "model_version is ${{ toJson(github.event.client_payload.data.runId) }}"; fi;
       # # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       # - name: Check Out Repository
       #   id: checkout_repository
