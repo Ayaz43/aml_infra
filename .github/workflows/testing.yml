@@ -2,7 +2,7 @@ name: generic-repodispatch
 
 on:
   repository_dispatch:
-    types: [run-completed1]
+    types: [run-completed]
 jobs:
   deploy:
     runs-on: ubuntu-latest
